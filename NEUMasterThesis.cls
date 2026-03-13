@@ -61,21 +61,32 @@
 %% 参考 ustcthesis、thuthesis 的实现方式
 %% ============================================================
 \newcommand{\neu@bodyfontsize}{12bp}
-\newcommand{\neu@bodyleading}{17bp}
+\newcommand{\neu@bodyleading}{22bp}
 
 % 对外接口：在导言区用 \setbodyleading{30bp} 之类进行调整
 \newcommand{\setbodyleading}[1]{\renewcommand{\neu@bodyleading}{#1}}
 
 \renewcommand\normalsize{%
     \@setfontsize\normalsize{\neu@bodyfontsize}{\neu@bodyleading}%
-  \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+  \abovedisplayskip 6\p@ \@plus2\p@ \@minus2\p@
   \abovedisplayshortskip \z@ \@plus3\p@
-  \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+  \belowdisplayshortskip 4\p@ \@plus3\p@ \@minus3\p@
   \belowdisplayskip \abovedisplayskip
   \let\@listi\@listI}
 \normalsize
-\AtBeginDocument{\normalsize}
+
+% 禁止 setspace 对 baselineskip 做二次缩放——
+% 行距已由 \@setfontsize 的第三参数精确控制，
+% setspace 的 \baselinestretch 只会导致公式、浮动体间距被意外放大
+\AtBeginDocument{%
+    \linespread{1}\selectfont
+}
 \setlength{\parskip}{0pt}
+
+% 浮动体（图表）与正文之间的间距
+\setlength{\intextsep}{2bp \@plus 2\p@ \@minus 2\p@}
+\setlength{\textfloatsep}{2bp \@plus 2\p@ \@minus 2\p@}
+\setlength{\floatsep}{2bp \@plus 2\p@ \@minus 2\p@}
 
 %% ============================================================
 %% 段落设置 — 首行缩进 2 字符
@@ -468,8 +479,8 @@
 %% 表号：章序号编号（表2.1），5号宋体，置于表上方居中
 %% ============================================================
 \captionsetup{font={small,bf},labelsep=space}
-\captionsetup[figure]{position=bottom,font={small},labelsep=space}
-\captionsetup[table]{position=top,font={small},labelsep=space}
+\captionsetup[figure]{position=bottom,font={small},labelsep=space,skip=4bp}
+\captionsetup[table]{position=top,font={small},labelsep=space,skip=2bp}
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 \renewcommand{\thetable}{\thechapter.\arabic{table}}
 \renewcommand{\theequation}{\thechapter.\arabic{equation}}
