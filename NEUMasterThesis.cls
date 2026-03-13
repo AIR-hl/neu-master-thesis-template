@@ -312,13 +312,14 @@
         {\zihao{4}Supervisor: \@esupervisor}
     \end{center}
 
-    \vfill
+    {\zihao{2}\vspace{7\baselineskip}}
 
     \begin{center}
         {\bfseries\zihao{3}Northeastern University}\\[6pt]
         {\bfseries\zihao{3}\@edate}
     \end{center}
     \clearpage
+    
 }
 
 %% ============================================================
