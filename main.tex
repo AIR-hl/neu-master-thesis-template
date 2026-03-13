@@ -1,0 +1,93 @@
+\documentclass{NEUMasterThesis}
+
+%% ============================================================
+%% 论文基本信息（请修改为你自己的信息）
+%% ============================================================
+
+% 中文信息
+\ctitle{基于GA的ABC支持型QoS切换管理机制\\
+的研究与仿真实现}          % 中文论文题目
+\cauthor{张三}                        % 作者姓名
+\studentid{20201234}                  % 学号
+\csupervisor{李四\ 教授}              % 指导教师（含职称）
+\cdepartment{东北大学计算机科学与工程学院} % 所在院系
+\cmajor{计算机科学与技术}             % 学科专业
+\cdate{2026年6月}                     % 论文完成日期
+\degreelevel{硕士}                    % 学位级别
+
+% 英文信息
+\etitle{Research and Simulated Implementation of QoS Handoff Mechanisms Based on GA with ABC Supported}  % 英文论文题目
+\eauthor{San Zhang}                         % 英文作者姓名
+\esupervisor{Professor Si Li}               % 英文指导教师
+\edepartment{School of Computer Science and Engineering}
+\emajor{Computer Science and Technology}    % 英文专业
+\edate{June 2026}                           % 英文日期
+
+% 扉页附加信息
+\classificationnumber{}               % 分类号（选填）
+\confidential{}                        % 密级（选填）
+\udc{}                                 % UDC（选填）
+\submitdate{2026年5月}                 % 论文提交日期
+\defensedate{2026年6月}                % 论文答辩日期
+\degreedate{2026年6月}                 % 学位授予日期
+\chairman{王五}                        % 答辩委员会主席
+\reviewers{评阅人1、评阅人2}            % 评阅人
+
+\begin{document}
+
+%% ============================================================
+%% 前置部分（扉页、声明、摘要、目录）
+%% ============================================================
+\frontmatter
+
+% 中文扉页
+\maketitlepage
+
+% 英文扉页
+\makeetitlepage
+
+% 独创性声明 + 版权使用授权书
+\makedeclaration
+
+% 中英文摘要
+\include{chapters/abstract}
+
+% 目录
+\makecontents
+
+%% ============================================================
+%% 主体部分（正文章节）
+%% ============================================================
+\mainmatter
+
+\include{chapters/chapter01}    % 第1章 绪论
+\include{chapters/chapter02}    % 第2章 （你的章节）
+% \include{chapters/chapter03}  % 第3章 （按需添加更多章节）
+% \include{chapters/chapter04}  % 第4章
+% \include{chapters/chapter05}  % 第5章
+
+%% ============================================================
+%% 结尾部分
+%% ============================================================
+% 结论
+\include{chapters/conclusion}
+
+\backmatter
+
+% 参考文献
+\addcontentsline{toc}{chapter}{参考文献}
+\bibliography{references/refs}
+
+% 致谢
+\include{chapters/acknowledgements}
+
+% 攻读硕士学位期间发表的论文
+\include{chapters/publications}
+
+% 个人简历
+% \include{chapters/resume}
+
+% 附录（如不需要可注释掉）
+% \include{chapters/appendix}
+
+\end{document}
