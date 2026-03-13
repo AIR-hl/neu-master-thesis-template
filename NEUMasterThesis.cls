@@ -144,7 +144,7 @@
 % 默认页面样式
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyfoot[C]{\zihao{-5}-\ \thepage\ -}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}\leftmark}
 }
@@ -153,11 +153,13 @@
 % 摘要页页眉
 \fancypagestyle{cabstract}{
     \fancyhf{}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}摘要}
 }
 \fancypagestyle{eabstract}{
     \fancyhf{}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}Abstract}
 }
@@ -173,6 +175,7 @@
 % 声明页页眉
 \fancypagestyle{declaration}{
     \fancyhf{}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
 }
@@ -223,7 +226,7 @@
 \setlength{\@info@label@width}{7em}  % 第一列标签宽度（最长 6 字 + 1em 分散余量）
 
 \def\maketitlepage{
-    \clearpage
+    \cleardoublepage
     \thispagestyle{empty}
     % 分类号、密级、UDC
     \begin{spacing}{1.5}
@@ -284,7 +287,7 @@
 %% 英文扉页
 %% ============================================================
 \def\makeetitlepage{
-    \clearpage
+    \cleardoublepage
     \thispagestyle{empty}
 
     {\zihao{5}\vspace{\baselineskip}}
@@ -322,12 +325,11 @@
 %% 独创性声明
 %% ============================================================
 \newcommand{\makedeclaration}{
-    \clearpage
+    \cleardoublepage
     \setcounter{page}{1}
     \pagenumbering{Roman}
     \thispagestyle{declaration}
     \phantomsection
-    \addcontentsline{toc}{chapter}{声明}
 
     {\zihao{2}\vspace{1.5\baselineskip}}
     \begin{center}
@@ -380,7 +382,6 @@
     \noindent 签字日期：\hspace{6em}%
     \hfill 签字日期：\hspace{6em}
 
-    \clearpage
 }
 
 %% ============================================================
@@ -388,7 +389,6 @@
 %% ============================================================
 \newenvironment{cabstract}{
     \chapter*{\centering{\heiti\zihao{2}摘\hspace{1em}要}}
-    \addcontentsline{toc}{chapter}{摘要}
     \thispagestyle{cabstract}
     \songti\normalsize
 }{
@@ -405,7 +405,6 @@
 %% ============================================================
 \newenvironment{eabstract}{
     \chapter*{\centering{\zihao{2}Abstract}}
-    \addcontentsline{toc}{chapter}{Abstract}
     \thispagestyle{eabstract}
     \normalsize
 }{
@@ -453,11 +452,13 @@
 
 % 目录命令
 \newcommand{\makecontents}{
-    \clearpage
+    \cleardoublepage
+    \@openrightfalse          % 阻止 \chapter* 内部再次 cleardoublepage
     \chapter*{\centering{\songti\zihao{2}目\hspace{2em}录}}
+    \@openrighttrue           % 恢复
     \thispagestyle{empty}
     \@starttoc{toc}
-    \clearpage
+    \cleardoublepage
 }
 
 %% ============================================================
@@ -518,9 +519,15 @@
 %% ============================================================
 \renewcommand\appendix{\setcounter{secnumdepth}{-2}}
 
-% 进入正文后再次确保正文行距生效（避免被局部字号设置覆盖）
-\let\neu@origmainmatter\mainmatter
-\renewcommand{\mainmatter}{\neu@origmainmatter\normalsize}
+% 进入正文后：章节新页开始，不再按 openright 插入双页空白
+% 同时再次确保正文行距生效（避免被局部字号设置覆盖）
+\renewcommand{\mainmatter}{
+    \clearpage
+    \@mainmattertrue
+    \@openrightfalse
+    \pagenumbering{arabic}
+    \normalsize
+}
 
 %% ============================================================
 %% 参考文献格式 — GBT7714 顺序编号
