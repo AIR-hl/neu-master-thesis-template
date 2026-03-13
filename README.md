@@ -17,8 +17,7 @@ NEUThesis/
 │   ├── publications.tex     # 攻读硕士学位期间发表的论文
 │   ├── resume.tex           # 个人简历
 │   └── appendix.tex         # 附录
-├── images/                  # 你的论文插图（放在这里）
-├── figures/                 # 校标等固定图片（不需要修改）
+├── figures/                 # 你的论文插图（放在这里）
 ├── references/              # 参考文献
 │   └── refs.bib             # BibTeX 参考文献数据库
 └── README.md                # 本文件
@@ -54,12 +53,12 @@ NEUThesis/
 
 ### 第三步：添加插图
 
-将图片文件（`.png`, `.jpg`, `.pdf` 等）放入 `images/` 目录，然后在正文中引用：
+将图片文件（`.png`, `.jpg`, `.pdf` 等）放入 `figures/` 目录，然后在正文中引用：
 
 ```latex
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/your-image.png}
+    \includegraphics[width=0.8\textwidth]{figures/your-image.png}
     \caption{图片标题}
     \label{fig:your-label}
 \end{figure}
