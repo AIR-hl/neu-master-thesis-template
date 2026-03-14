@@ -130,8 +130,8 @@
     subsubsection={
         format={\heiti\zihao{-4}},
         aftername={\ },
-        beforeskip={2bp},
-        afterskip={-0.5bp},
+        beforeskip={6bp},
+        afterskip={-1bp},
     },
 }
 \setcounter{secnumdepth}{3}
