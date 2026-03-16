@@ -17,7 +17,8 @@ NEUThesis/
 │   ├── publications.tex     # 攻读硕士学位期间发表的论文
 │   ├── resume.tex           # 个人简历
 │   └── appendix.tex         # 附录
-├── figures/                 # 你的论文插图（放在这里）
+├── images/                  # 你的论文插图（放在这里）
+├── figures/                 # 校标等固定图片（不需要修改）
 ├── references/              # 参考文献
 │   └── refs.bib             # BibTeX 参考文献数据库
 └── README.md                # 本文件
@@ -53,12 +54,12 @@ NEUThesis/
 
 ### 第三步：添加插图
 
-将图片文件（`.png`, `.jpg`, `.pdf` 等）放入 `figures/` 目录，然后在正文中引用：
+将图片文件（`.png`, `.jpg`, `.pdf` 等）放入 `images/` 目录，然后在正文中引用：
 
 ```latex
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/your-image.png}
+    \includegraphics[width=0.8\textwidth]{images/your-image.png}
     \caption{图片标题}
     \label{fig:your-label}
 \end{figure}
@@ -117,6 +118,24 @@ NEUThesis/
 \RequirePackage{gbt7714}
 \bibliographystyle{gbt7714-numerical}
 ```
+
+### Q: 如何开启/关闭正文章节的双页空白？
+
+模板默认开启 **正文双页空白**：每一章总从奇数页（右页）开始，若前一章结束于奇数页，则自动插入一页空白。
+
+如需**关闭**该功能（正文章节直接从下一页开始，不插入空白页），打开 `NEUMasterThesis.cls`，找到 `\renewcommand{\mainmatter}` 块：
+
+```latex
+\renewcommand{\mainmatter}{
+    \clearpage
+    \@mainmattertrue
+    \@openrighttrue   %% [双页空白开关] 改为 \@openrightfalse 可关闭
+    \pagenumbering{arabic}
+    \normalsize
+}
+```
+
+将其中的 `\@openrighttrue` 改为 `\@openrightfalse` 即可。
 
 ## 许可
 

@@ -531,12 +531,13 @@
 %% ============================================================
 \renewcommand\appendix{\setcounter{secnumdepth}{-2}}
 
-% 进入正文后：章节新页开始，不再按 openright 插入双页空白
+% 进入正文后：启用 openright，每章从奇数页（右页）开始，前一页为空白页
+% 如需关闭双页空白，将下方 \@openrighttrue 改为 \@openrightfalse
 % 同时再次确保正文行距生效（避免被局部字号设置覆盖）
 \renewcommand{\mainmatter}{
     \clearpage
     \@mainmattertrue
-    \@openrightfalse
+    \@openrighttrue   %% [双页空白开关] 改为 \@openrightfalse 可关闭
     \pagenumbering{arabic}
     \normalsize
 }
