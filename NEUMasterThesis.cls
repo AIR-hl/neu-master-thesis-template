@@ -197,11 +197,19 @@
     \renewcommand{\headrulewidth}{0pt}
 }
 
-%% 首页右开时，空白左页不留页眉页脚
+%% 空白左页的页面样式：
+%% 前言部分（扉页、声明、摘要、目录等）：无页眉页脚（NEUblank）
+%% 正文及其后各章（致谢、发表论文、简历等）：保留页眉和页码（plain）
 \makeatletter
+\newif\ifneu@bodymatter
+\neu@bodymatterfalse
 \let\neu@cleardoublepage\cleardoublepage
-\renewcommand{\cleardoublepage}{
-    \clearpage{\pagestyle{NEUblank}\neu@cleardoublepage}
+\renewcommand{\cleardoublepage}{%
+    \ifneu@bodymatter
+        \clearpage{\pagestyle{plain}\neu@cleardoublepage}%
+    \else
+        \clearpage{\pagestyle{NEUblank}\neu@cleardoublepage}%
+    \fi
 }
 
 %% ============================================================
@@ -537,6 +545,7 @@
 \renewcommand{\mainmatter}{
     \clearpage
     \@mainmattertrue
+    \neu@bodymattertrue
     \@openrighttrue   %% [双页空白开关] 改为 \@openrightfalse 可关闭
     \pagenumbering{arabic}
     \normalsize
