@@ -350,6 +350,7 @@
     \pagenumbering{Roman}
     \thispagestyle{declaration}
     \phantomsection
+    \addcontentsline{toc}{chapter}{独创性声明}
 
     {\zihao{2}\vspace{1.5\baselineskip}}
     \begin{center}
@@ -409,6 +410,7 @@
 %% ============================================================
 \newenvironment{cabstract}{
     \chapter*{\centering{\heiti\zihao{2}摘\hspace{1em}要}}
+    \addcontentsline{toc}{chapter}{摘要}
     \thispagestyle{cabstract}
     \songti\normalsize
 }{
@@ -425,6 +427,7 @@
 %% ============================================================
 \newenvironment{eabstract}{
     \chapter*{\centering{\zihao{2}Abstract}}
+    \addcontentsline{toc}{chapter}{Abstract}
     \thispagestyle{eabstract}
     \normalsize
 }{
@@ -457,10 +460,10 @@
 \renewcommand{\cftsecpagefont}{\zihao{-4}}
 \renewcommand{\cftsubsecpagefont}{\zihao{-4}}
 
-% 目录项行距
-\setlength{\cftbeforechapskip}{6pt}
-\setlength{\cftbeforesecskip}{3pt}
-\setlength{\cftbeforesubsecskip}{3pt}
+% 目录项间距（方案 A：通过条目前间距营造接近 Word 1.5 倍行距的视觉效果）
+\setlength{\cftbeforechapskip}{12bp}
+\setlength{\cftbeforesecskip}{9bp}
+\setlength{\cftbeforesubsecskip}{9bp}
 
 % 目录项缩进
 \setlength{\cftchapindent}{0em}
@@ -474,7 +477,7 @@
 \newcommand{\makecontents}{
     \cleardoublepage
     \@openrightfalse          % 阻止 \chapter* 内部再次 cleardoublepage
-    \chapter*{\centering{\songti\zihao{2}目\hspace{2em}录}}
+    \chapter*{\centering{\songti\zihao{2}目\hspace{1em}录}}
     \@openrighttrue           % 恢复
     \thispagestyle{empty}
     \@starttoc{toc}
