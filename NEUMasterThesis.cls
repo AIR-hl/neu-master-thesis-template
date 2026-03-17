@@ -84,9 +84,9 @@
 \setlength{\parskip}{0pt}
 
 % 浮动体（图表）与正文之间的间距
-\setlength{\intextsep}{2bp \@plus 2\p@ \@minus 2\p@}
-\setlength{\textfloatsep}{2bp \@plus 2\p@ \@minus 2\p@}
-\setlength{\floatsep}{2bp \@plus 2\p@ \@minus 2\p@}
+\setlength{\intextsep}{4bp \@plus 2\p@ \@minus 2\p@}
+\setlength{\textfloatsep}{4bp \@plus 2\p@ \@minus 2\p@}
+\setlength{\floatsep}{4bp \@plus 2\p@ \@minus 2\p@}
 
 %% ============================================================
 %% 段落设置 — 首行缩进 2 字符
