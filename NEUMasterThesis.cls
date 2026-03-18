@@ -16,12 +16,14 @@
 \RequirePackage{fancyhdr}        % 页眉页脚
 \RequirePackage{amsmath,amsthm,amssymb,amsfonts} % 数学公式
 \RequirePackage{graphicx}        % 插图
+\RequirePackage{adjustbox}       % 按最大宽度缩放盒子
 \RequirePackage{subfigure}       % 子图
 \RequirePackage{float}           % 浮动体控制
 \RequirePackage{booktabs}        % 三线表
 \RequirePackage{longtable}       % 长表格
 \RequirePackage{tabularx}        % 自动宽度表格
 \RequirePackage{caption}         % 图表标题
+\RequirePackage{etoolbox}        % 环境钩子
 \RequirePackage{tikz}            % 绘图
 \RequirePackage{listings}        % 代码排版
 \RequirePackage{algorithmicx,algorithm} % 算法排版
@@ -491,7 +493,47 @@
 %% ============================================================
 \captionsetup{font={small,bf},labelsep=space}
 \captionsetup[figure]{position=bottom,font={small},labelsep=space,skip=4bp}
-\captionsetup[table]{position=top,font={small},labelsep=space,skip=2bp}
+\DeclareCaptionFont{neuTableCaptionFont}{\songti\zihao{5}}
+\newcommand{\neu@tablebodyfont}{\songti\zihao{5}}
+\newcommand{\neu@tablerowstretch}{1.3}
+\newcommand{\settablerowstretch}[1]{\renewcommand{\neu@tablerowstretch}{#1}}
+\newif\ifneu@intable
+\neu@intablefalse
+\captionsetup[table]{position=top,font=neuTableCaptionFont,labelsep=space,skip=2bp}
+\AtBeginEnvironment{table}{%
+    \neu@intabletrue
+    \neu@tablebodyfont
+    \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+}
+\AfterEndEnvironment{table}{\global\neu@intablefalse}
+\AtBeginEnvironment{table*}{%
+    \neu@intabletrue
+    \neu@tablebodyfont
+    \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+}
+\AfterEndEnvironment{table*}{\global\neu@intablefalse}
+\AtBeginEnvironment{tabular}{%
+    \ifneu@intable
+        \neu@tablebodyfont
+        \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+    \fi
+}
+\AtBeginEnvironment{tabular*}{%
+    \ifneu@intable
+        \neu@tablebodyfont
+        \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+    \fi
+}
+\AtBeginEnvironment{tabularx}{%
+    \ifneu@intable
+        \neu@tablebodyfont
+        \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+    \fi
+}
+\AtBeginEnvironment{longtable}{%
+    \neu@tablebodyfont
+    \renewcommand{\arraystretch}{\neu@tablerowstretch}%
+}
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 \renewcommand{\thetable}{\thechapter.\arabic{table}}
 \renewcommand{\theequation}{\thechapter.\arabic{equation}}
