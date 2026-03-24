@@ -96,6 +96,28 @@ NEUThesis/
 
 确保使用 **XeLaTeX** 编译器（不是 pdfLaTeX）。本模板依赖 XeLaTeX 来处理中文字体。
 
+### Q: 编译发生 Your compile timed out 怎么办？
+
+可能是图片太多，可将 png 等图片格式转为 pdf 再尝试编译几次
+```python
+from pathlib import Path
+from PIL import Image
+
+def image_to_pdf(input_path):
+    input_path = Path(input_path)
+
+    if not input_path.exists():
+        print(f"文件不存在: {input_path}")
+
+    with Image.open(input_path) as img:
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+        img.save(output_path, "PDF")
+    print(f"转换完成: {output_path}")
+
+image_to_pdf("figures/demo.png")
+```
+
 ### Q: 如何调整图片大小？
 
 修改 `\includegraphics` 的 `width` 参数：

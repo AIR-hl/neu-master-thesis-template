@@ -31,6 +31,7 @@
 \RequirePackage{enumitem}        % 列表环境
 \RequirePackage{ulem}            % 下划线
 \RequirePackage{xcolor}          % 颜色
+\RequirePackage{multirow}        % 字体选择
 \RequirePackage[titles,subfigure]{tocloft} % 目录格式
 \RequirePackage[numbers,sort&compress,super,square]{natbib} % 参考文献引用
 \RequirePackage[draft=false,colorlinks=true,CJKbookmarks=true,
@@ -600,6 +601,13 @@
 %% 参考文献格式 — GBT7714 顺序编号
 %% ============================================================
 \bibliographystyle{unsrt}
+\AtBeginEnvironment{thebibliography}{%
+    \songti\normalsize
+    \@ifundefined{bibsep}{}{\setlength{\bibsep}{0pt}}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\parskip}{0pt}%
+}
 
 %% ============================================================
 %% 浮动参数
