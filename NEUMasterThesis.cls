@@ -283,7 +283,7 @@
     % 信息表格
     \begin{centering}
         \zihao{4}\songti
-        \renewcommand{\arraystretch}{1.5}
+        \renewcommand{\arraystretch}{2}
         \begin{tabular}{@{}r@{\hspace{0.5em}}l@{}}
             \makebox[\@info@label@width][s]{作\hfill 者\hfill 姓\hfill 名}：& \@cauthor \\
             \makebox[\@info@label@width][s]{作\hfill 者\hfill 学\hfill 号}：& \@studentid \\
@@ -297,7 +297,7 @@
         \end{tabular}
     \end{centering}
 
-    {\zihao{5}\vspace{4.5\baselineskip}}
+    {\zihao{5}\vspace{5\baselineskip}}
     \begin{center}
         {\zihao{4}东\hspace{1em}北\hspace{1em}大\hspace{1em}学}\\[6pt]
         {\zihao{4}\@cdate}
