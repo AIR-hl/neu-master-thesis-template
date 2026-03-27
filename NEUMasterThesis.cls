@@ -491,23 +491,31 @@
 %% 图表标题格式
 %% 图号：章序号编号（图2.1），5号宋体，置于图下方居中
 %% 表号：章序号编号（表2.1），5号宋体，置于表上方居中
+%% 双语题注：第一层中文，第二层英文，共用同一编号
 %% ============================================================
-\captionsetup{font={small,bf},labelsep=space}
-\captionsetup[figure]{position=bottom,font={small},labelsep=space,skip=4bp}
+\DeclareCaptionFont{neuFigureCaptionFont}{\songti\zihao{5}}
 \DeclareCaptionFont{neuTableCaptionFont}{\songti\zihao{5}}
+\DeclareCaptionFont{neuBiSecondCaptionFont}{\rmfamily\zihao{5}}
+\newcommand{\neu@englishfloatname}{Fig.}
+\captionsetup{labelsep=space}
+\captionsetup[figure]{position=bottom,font=neuFigureCaptionFont,labelsep=space,skip=4bp,justification=centering}
 \newcommand{\neu@tablebodyfont}{\songti\zihao{5}}
 \newcommand{\neu@tablerowstretch}{1.3}
 \newcommand{\settablerowstretch}[1]{\renewcommand{\neu@tablerowstretch}{#1}}
 \newif\ifneu@intable
 \neu@intablefalse
-\captionsetup[table]{position=top,font=neuTableCaptionFont,labelsep=space,skip=2bp}
+\captionsetup[table]{position=top,font=neuTableCaptionFont,labelsep=space,skip=2bp,justification=centering}
+\AtBeginEnvironment{figure}{\gdef\neu@englishfloatname{Fig.}}
+\AtBeginEnvironment{figure*}{\gdef\neu@englishfloatname{Fig.}}
 \AtBeginEnvironment{table}{%
+    \gdef\neu@englishfloatname{Table}%
     \neu@intabletrue
     \neu@tablebodyfont
     \renewcommand{\arraystretch}{\neu@tablerowstretch}%
 }
 \AfterEndEnvironment{table}{\global\neu@intablefalse}
 \AtBeginEnvironment{table*}{%
+    \gdef\neu@englishfloatname{Table}%
     \neu@intabletrue
     \neu@tablebodyfont
     \renewcommand{\arraystretch}{\neu@tablerowstretch}%
@@ -538,6 +546,36 @@
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 \renewcommand{\thetable}{\thechapter.\arabic{table}}
 \renewcommand{\theequation}{\thechapter.\arabic{equation}}
+
+% 双语题注快捷命令：\bicaption{中文题注}{English Caption}
+% 默认仅将中文题注写入图表目录；英文题注作为第二行显示，不重复写目录项。
+% 兼容调用形式：
+% \bicaption{中文长标题}{English Long Caption}
+% \bicaption[中文短标题]{中文长标题}[English Short Caption]{English Long Caption}
+\newcommand{\neu@englishcaptionline}[1]{%
+    \neu@englishfloatname~\csname the\@captype\endcsname\space #1%
+}
+\NewDocumentCommand{\encaption}{ O{} m }{%
+    {%
+        \captionsetup{labelformat=empty,font=neuBiSecondCaptionFont,labelsep=space,justification=centering,singlelinecheck=false}%
+        \ifstrempty{#1}{%
+            \caption{\neu@englishcaptionline{#2}}%
+        }{%
+            \caption[#1]{\neu@englishcaptionline{#2}}%
+        }%
+    }%
+}
+\NewDocumentCommand{\bicaption}{ O{} m O{} m }{%
+    \ifstrempty{#1}{%
+        \caption{#2}%
+    }{%
+        \caption[#1]{#2}%
+    }%
+    {%
+        \captionsetup{font=neuBiSecondCaptionFont,labelsep=space,singlelinecheck=false}%
+        \caption*{\neu@englishcaptionline{#4}}%
+    }%
+}
 
 %% ============================================================
 %% 插图路径
