@@ -636,9 +636,9 @@
 }
 
 %% ============================================================
-%% 参考文献格式 — GBT7714 顺序编号
+%% 参考文献格式 — 自定义 BibTeX 顺序编号样式
 %% ============================================================
-\bibliographystyle{unsrt}
+\bibliographystyle{neu-thesis}
 \AtBeginEnvironment{thebibliography}{%
     \songti\normalsize
     \@ifundefined{bibsep}{}{\setlength{\bibsep}{0pt}}%

@@ -2,6 +2,8 @@
 
 基于《东北大学硕士学位论文排版打印格式》(20251230版) 制作的 LaTeX 模板，可在本地 TeX 环境或 [Overleaf](https://www.overleaf.com) 上使用。
 
+**不时更新，有问题请及时反馈**🥹
+
 ## 项目结构
 
 ```
@@ -99,6 +101,7 @@ NEUThesis/
 ### Q: 编译发生 Your compile timed out 怎么办？
 
 可能是图片太多，可将 png 等图片格式转为 pdf 再尝试编译几次
+
 ```python
 from pathlib import Path
 from PIL import Image
