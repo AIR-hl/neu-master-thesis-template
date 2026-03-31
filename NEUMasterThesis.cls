@@ -4,7 +4,7 @@
 %%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NEUMasterThesis}[2025/12/30 东北大学硕士学位论文模板]
-\LoadClass[UTF8,cs4size,a4paper,twoside,openright]{ctexbook}
+\LoadClass[UTF8,cs4size,a4paper,twoside,openright,fontset=ubuntu]{ctexbook}
 
 %% ============================================================
 %% 宏包加载
@@ -598,9 +598,9 @@
 %% 攻读学位期间发表的论著环境
 %% ============================================================
 \newenvironment{publications}{
-    \chapter*{\centering{\heiti\zihao{2}攻读硕士学位期间发表的论文}}
-    \addcontentsline{toc}{chapter}{攻读硕士学位期间发表的论文}
-    \markboth{攻读硕士学位期间发表的论文}{}
+    \chapter*{\centering{\heiti\zihao{2}攻读学位期间发表的论著、获奖情况及发明专利等项}}
+    \addcontentsline{toc}{chapter}{攻读学位期间发表的论著、获奖情况及发明专利等项}
+    \markboth{攻读学位期间发表的论著、获奖情况及发明专利等项}{}
     \songti\normalsize
 }{
     \clearpage
