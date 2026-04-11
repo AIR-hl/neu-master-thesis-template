@@ -161,6 +161,8 @@
     \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}\leftmark}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
 }
 \pagestyle{plain}
 
@@ -170,12 +172,16 @@
     \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}摘要}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
 }
 \fancypagestyle{eabstract}{
     \fancyhf{}
     \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}Abstract}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
 }
 
 % 目录页页眉
@@ -184,13 +190,26 @@
     \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
     \fancyhead[R]{\kaishu\zihao{5}目录}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}
 }
 
 % 声明页页眉
 \fancypagestyle{declaration}{
     \fancyhf{}
-    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% 前置部分空白页页眉
+\def\neu@frontblanktitle{}
+\newcommand{\neu@setfrontblanktitle}[1]{\gdef\neu@frontblanktitle{#1}}
+\fancypagestyle{frontblank}{
+    \fancyhf{}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
+    \fancyhead[L]{\kaishu\zihao{5}东北大学硕士学位论文}
+    \fancyhead[R]{\kaishu\zihao{5}\neu@frontblanktitle}
+    \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
 
@@ -201,17 +220,32 @@
 }
 
 %% 空白左页的页面样式：
-%% 前言部分（扉页、声明、摘要、目录等）：无页眉页脚（NEUblank）
+%% 前言部分可分别控制：
+%% 声明等使用无页眉页脚（NEUblank），摘要/目录等可切换为带页眉页脚（frontblank）
 %% 正文及其后各章（致谢、发表论文、简历等）：保留页眉和页码（plain）
 \makeatletter
 \newif\ifneu@bodymatter
+\newif\ifneu@frontblankwithheader
 \neu@bodymatterfalse
+\neu@frontblankwithheaderfalse
 \let\neu@cleardoublepage\cleardoublepage
 \renewcommand{\cleardoublepage}{%
-    \ifneu@bodymatter
-        \clearpage{\pagestyle{plain}\neu@cleardoublepage}%
-    \else
-        \clearpage{\pagestyle{NEUblank}\neu@cleardoublepage}%
+    \clearpage
+    \if@twoside
+        \ifodd\c@page\else
+            \hbox{}%
+            \ifneu@bodymatter
+                \thispagestyle{plain}%
+            \else
+                \ifneu@frontblankwithheader
+                    \thispagestyle{frontblank}%
+                \else
+                    \thispagestyle{NEUblank}%
+                \fi
+            \fi
+            \newpage
+            \if@twocolumn\hbox{}\newpage\fi
+        \fi
     \fi
 }
 
@@ -348,6 +382,8 @@
 %% 独创性声明
 %% ============================================================
 \newcommand{\makedeclaration}{
+    \global\neu@frontblankwithheaderfalse
+    \pagestyle{declaration}
     \cleardoublepage
     \setcounter{page}{1}
     \pagenumbering{Roman}
@@ -405,7 +441,6 @@
 
     \noindent 签字日期：\hspace{6em}%
     \hfill 签字日期：\hspace{6em}
-
 }
 
 %% ============================================================
@@ -414,10 +449,15 @@
 \newenvironment{cabstract}{
     \chapter*{\centering{\heiti\zihao{2}摘\hspace{1em}要}}
     \addcontentsline{toc}{chapter}{摘要}
+    \markboth{摘要}{}
+    \global\neu@frontblankwithheadertrue
+    \neu@setfrontblanktitle{摘要}
+    \pagestyle{cabstract}
     \thispagestyle{cabstract}
     \songti\normalsize
-}{
+}{%
     \par
+    \aftergroup\ps@cabstract
 }
 
 \newcommand{\ckeywords}[1]{
@@ -431,10 +471,15 @@
 \newenvironment{eabstract}{
     \chapter*{\centering{\zihao{2}Abstract}}
     \addcontentsline{toc}{chapter}{Abstract}
+    \markboth{Abstract}{}
+    \global\neu@frontblankwithheadertrue
+    \neu@setfrontblanktitle{Abstract}
+    \pagestyle{eabstract}
     \thispagestyle{eabstract}
     \normalsize
-}{
+}{%
     \par
+    \aftergroup\ps@eabstract
 }
 
 \newcommand{\ekeywords}[1]{
@@ -482,7 +527,11 @@
     \@openrightfalse          % 阻止 \chapter* 内部再次 cleardoublepage
     \chapter*{\centering{\songti\zihao{2}目\hspace{1em}录}}
     \@openrighttrue           % 恢复
-    \thispagestyle{empty}
+    \markboth{目录}{}
+    \global\neu@frontblankwithheadertrue
+    \neu@setfrontblanktitle{目录}
+    \pagestyle{plain}
+    \thispagestyle{contents}
     \@starttoc{toc}
     \cleardoublepage
 }
