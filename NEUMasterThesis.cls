@@ -4,7 +4,7 @@
 %%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NEUMasterThesis}[2025/12/30 东北大学硕士学位论文模板]
-\LoadClass[UTF8,cs4size,a4paper,twoside,openright,fontset=ubuntu]{ctexbook}
+\LoadClass[UTF8,cs4size,a4paper,twoside,openright,fontset=none]{ctexbook}
 
 %% ============================================================
 %% 宏包加载
@@ -38,9 +38,48 @@
     linkcolor=black,citecolor=black,urlcolor=blue,hyperindex]{hyperref}
 
 %% ============================================================
-%% 字体设置
+%% 字体设置 — 使用项目 fonts/ 目录中的字体文件
 %% ============================================================
-\setmainfont{Times New Roman}    % 西文字体
+% 西文字体：Times New Roman
+\setmainfont{Times New Roman}[
+    Path           = fonts/,
+    UprightFont    = times.ttf,
+    BoldFont       = timesbd.ttf,
+    ItalicFont     = timesi.ttf,
+    BoldItalicFont = timesbi.ttf,
+]
+% 中文主字体：宋体（正文）
+\setCJKmainfont{SimSun}[
+    Path       = fonts/,
+    UprightFont = simsun.ttc,
+    BoldFont   = simhei.ttf,   % 宋体无专属粗体，以黑体代替
+    ItalicFont = simkai.ttf,   % 斜体用楷体代替
+]
+% 中文无衬线字体：黑体
+\setCJKsansfont{SimHei}[
+    Path        = fonts/,
+    UprightFont = simhei.ttf,
+]
+% 中文等宽字体：仿宋（无文件时回退到宋体）
+\setCJKmonofont{SimSun}[
+    Path        = fonts/,
+    UprightFont = simsun.ttc,
+]
+% 定义 ctex 所需的字体族
+\newCJKfontfamily\songti{SimSun}[
+    Path        = fonts/,
+    UprightFont = simsun.ttc,
+    BoldFont    = simhei.ttf,
+    ItalicFont  = simkai.ttf,
+]
+\newCJKfontfamily\heiti{SimHei}[
+    Path        = fonts/,
+    UprightFont = simhei.ttf,
+]
+\newCJKfontfamily\kaishu{SimKai}[
+    Path        = fonts/,
+    UprightFont = simkai.ttf,
+]
 \songti                          % 默认中文宋体
 
 %% ============================================================
@@ -197,6 +236,7 @@
 % 声明页页眉
 \fancypagestyle{declaration}{
     \fancyhf{}
+    \fancyfoot[C]{\zihao{-4}-\ \thepage\ -}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
 }
